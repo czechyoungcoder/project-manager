@@ -1,32 +1,68 @@
 /* https://colorhunt.co/palette/fdf7e4faeed1ded0b6bbab8c */
 
 .container {
-    margin: 0 auto;
-    max-width: 900px;
+  margin: 0 auto;
+  max-width: 1200px;
 }
 
- .tab-window {
-    position: relative;
-    margin: 1rem 1.5rem 1rem 5rem;
-    border: 1px solid black;
-    max-width: 900px;
-    height: 80vh;
-    min-height: 400px;
-    max-height: 800px;
+.tab-window {
+  position: relative;
+  margin: 1rem 1.5rem 1rem 5rem;
+  padding: 1.5rem;
+  height: 80vh;
+  min-height: 400px;
+  max-height: 800px;
+  background: var(--lightest);
 }
 
 .tab-menu {
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translateX(-100%);
-} 
-
-.tab-list li {
-    margin: .25rem 1rem;
-    background: var(--lighter);   
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateX(-100%);
 }
 
-.tab-list li .active-tab {
-    background: var(--dark);
+.tab-list {
+  margin-top: 2rem;
+}
+
+.tab-list li {
+  margin: 0.25rem 0;
+  padding: 0.25rem 1rem;
+  background: var(--light);
+}
+
+.tab-list li.active {
+  background: var(--lightest);
+}
+
+table {
+  background: var(--lighter);
+  border: 2px solid #555;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  width: 100%;
+}
+
+table thead {
+  background: var(--dark);
+}
+
+table th {
+  padding: 0.25rem 0.5rem;
+  text-align: left;
+}
+
+table td {
+  padding: 0.5rem;
+}
+
+table td,
+table th {
+  border-right: 2px solid #555;
+}
+
+/* Style table rows alternately */
+table tbody tr:nth-child(even) {
+  background-color: var(--light);
 }

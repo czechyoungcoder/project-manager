@@ -1,0 +1,20 @@
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-add {
+  padding: 0.25rem 0.5rem;
+  background: var(--light);
+  border: none;
+  cursor: pointer;
+  border: 2px solid #333;
+}
+.btn-delete {
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: red;
+  font-weight: 600;
+}
