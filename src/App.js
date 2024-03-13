@@ -11,8 +11,8 @@ import ProjectsList from "./components/ProjectsList";
 
 function App() {
   const [activeTab, setActiveTab] = useState(TabOptions.Tasks);
-  const [tasks, setTasks] = useState();
-  const [projects, setProjects] = useState();
+  const [tasks, setTasks] = useState([]);
+  const [projects, setProjects] = useState([]);
 
   useEffect(() => {
     const storedTasks = getTasks();

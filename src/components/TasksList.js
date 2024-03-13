@@ -11,6 +11,22 @@ export default function TasksList({ tasks, addTask, deleteTask }) {
     setModalOpen(!modalOpen);
   };
 
+  const getTotalTime = () => {
+    let totalTimeMilliseconds = 0;
+
+    tasks.forEach((task) => {
+      const taskDurationMilliseconds =
+        new Date(task.endTime) - new Date(task.startTime);
+      totalTimeMilliseconds += taskDurationMilliseconds;
+    });
+
+    const totalTime = new Date(totalTimeMilliseconds);
+
+    const formattedTotalTime = formatTime(totalTime);
+
+    return formattedTotalTime;
+  };
+
   return (
     <>
       {modalOpen && (
@@ -24,7 +40,7 @@ export default function TasksList({ tasks, addTask, deleteTask }) {
       )}
 
       <div className="row">
-        <h1>Dnes odpracováno: {} </h1>
+        <h1>Dnes odpracováno: {getTotalTime()} </h1>
         <button className="btn-add" onClick={switchModal}>
           ➕ Nový záznam
         </button>
