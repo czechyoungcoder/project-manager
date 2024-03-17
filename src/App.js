@@ -11,14 +11,14 @@ import ProjectsList from "./components/ProjectsList";
 
 function App() {
   const [activeTab, setActiveTab] = useState(TabOptions.Tasks);
-  const [tasks, setTasks] = useState([]);
-  const [projects, setProjects] = useState([]);
+  const [tasks, setTasks] = useState();
+  const [projects, setProjects] = useState();
 
   useEffect(() => {
     const storedTasks = getTasks();
-    setTasks(storedTasks);
     const storedProjects = getProjects();
     setProjects(storedProjects);
+    setTasks(storedTasks);
   }, []);
 
   useEffect(() => {
@@ -30,6 +30,7 @@ function App() {
   }, [projects]);
 
   const addTask = (record) => {
+    console.log(record);
     setTasks([...tasks, record]);
   };
 
@@ -46,9 +47,14 @@ function App() {
       case TabOptions.Projects:
         return <ProjectsList />;
       case TabOptions.Tasks:
-        return (
-          <TasksList tasks={tasks} deleteTask={deleteTask} addTask={addTask} />
-        );
+        return tasks ? (
+          <TasksList
+            tasks={tasks}
+            projects={projects}
+            deleteTask={deleteTask}
+            addTask={addTask}
+          />
+        ) : null;
       case TabOptions.Stats:
         return "3";
       default:

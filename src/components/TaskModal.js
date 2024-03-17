@@ -13,7 +13,7 @@ export default function TaskModal({ onClose, onSubmit }) {
     startMM: "",
     endHH: "",
     endMM: "",
-    project: "",
+    projectId: "",
   });
 
   const [projects, setProjects] = useState([]);
@@ -40,12 +40,14 @@ export default function TaskModal({ onClose, onSubmit }) {
       formData.endHH,
       formData.endMM
     );
+
     const newTask = new Task(
       formData.title,
       startTime,
       endTime,
-      formData.project
+      formData.projectId
     );
+
     onSubmit(newTask);
   };
 
@@ -60,19 +62,19 @@ export default function TaskModal({ onClose, onSubmit }) {
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="project">Project:</label>
+            <label htmlFor="projectId">Project:</label>
             <select
               required
-              id="project"
-              name="project"
-              value={formData.project}
+              id="projectId"
+              name="projectId"
+              value={formData.projectId}
               onChange={handleChange}
             >
               <option value="" disabled>
                 Select Project
               </option>
               {projects.map((project) => (
-                <option key={project.id} value={project.title}>
+                <option key={project.id} value={project.id}>
                   {project.title}
                 </option>
               ))}
