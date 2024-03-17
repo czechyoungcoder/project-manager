@@ -31,6 +31,7 @@ export default function TasksList({ tasks, projects, addTask, deleteTask }) {
     <>
       {modalOpen && (
         <TaskModal
+          projects={projects}
           onSubmit={(taskData) => {
             addTask(taskData);
             switchModal();

@@ -1,0 +1,67 @@
+.timer {
+  margin: 1rem 2rem 1rem 8rem;
+  display: flex;
+  gap: 2rem;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.timer .form-group:first-child {
+  flex: 1;
+}
+
+.timer .form-group {
+  display: flex;
+}
+
+.timer-time {
+  margin-right: 1rem;
+  font-size: 2rem;
+}
+
+.timer select,
+.timer input {
+  height: 2rem;
+}
+
+.timer input[type="text"] {
+  flex: 1;
+}
+
+.play-button-checkbox input[type="checkbox"] {
+  display: none; /* Hide the default checkbox */
+}
+
+.play-button-checkbox {
+  display: grid;
+  place-items: center;
+}
+
+.play-button-checkbox .play-button {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  background-color: #4caf50;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+}
+
+.play-button-checkbox .play-button::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-35%, -50%);
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-left: 15px solid white;
+}
+
+.play-button-checkbox.running .play-button::after {
+  transform: translate(-50%, -50%);
+  border: none;
+  width: 15px;
+  height: 15px;
+  background-color: white;
+}

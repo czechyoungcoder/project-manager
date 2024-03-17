@@ -75,7 +75,6 @@ table th {
   border-right: 2px solid #555;
 }
 
-/* Style table rows alternately */
 table tbody tr:nth-child(even) {
   background-color: var(--light);
 }

@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Task from "../models/Task";
-import { getProjects } from "../services/localStorage";
 import "./Modal.css";
 import { combineDateTime, formatDate, formatTime } from "../utils/timeUtils";
 
-export default function TaskModal({ onClose, onSubmit }) {
+export default function TaskModal({ projects, onClose, onSubmit }) {
   const [formData, setFormData] = useState({
     title: "",
     date: "",
@@ -15,13 +14,6 @@ export default function TaskModal({ onClose, onSubmit }) {
     endMM: "",
     projectId: "",
   });
-
-  const [projects, setProjects] = useState([]);
-
-  useEffect(() => {
-    const loadedProjects = getProjects();
-    setProjects(loadedProjects);
-  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,9 +35,10 @@ export default function TaskModal({ onClose, onSubmit }) {
 
     const newTask = new Task(
       formData.title,
+      formData.projectId,
+      true,
       startTime,
-      endTime,
-      formData.projectId
+      endTime
     );
 
     onSubmit(newTask);
