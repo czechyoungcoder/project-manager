@@ -13,11 +13,14 @@ export default function TasksList({ tasks, projects, addTask, deleteTask }) {
 
   const getTotalTime = () => {
     let totalTimeMilliseconds = 0;
+    const today = new Date().setHours(0, 0, 0, 0);
 
     tasks.forEach((task) => {
-      const taskDurationMilliseconds =
-        new Date(task.endTime) - new Date(task.startTime);
-      totalTimeMilliseconds += taskDurationMilliseconds;
+      if (new Date(task.startTime).setHours(0, 0, 0, 0) === today) {
+        const taskDurationMilliseconds =
+          new Date(task.endTime) - new Date(task.startTime);
+        totalTimeMilliseconds += taskDurationMilliseconds;
+      }
     });
 
     const totalTime = new Date(totalTimeMilliseconds);

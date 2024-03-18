@@ -1,30 +1,48 @@
 import React, { useState } from "react";
 import Task from "../models/Task";
 import "./Timer.css";
+import { formatDate, formatTime } from "../utils/timeUtils";
 
-// export default function Timer( projects, task, onStart, onStop }) {
-
-export default function Timer({ projects, onStart, getTime }) {
-  const storedTimer = localStorage.getItem("timer");
-
+export default function Timer({ projects, getTask, onStart, onPause, onStop }) {
   const [formData, setFormData] = useState({
     title: "",
     projectId: "",
-    isRunning: false,
+    isRunning: Boolean(getTask()),
   });
 
-  const handleChange = (e) => {
-    let { name, value } = e.target;
+  const getTime = () => {
+    return getTask()
+      ? formatTime(new Date(getTask().endTime) - new Date(getTask().startTime))
+      : null;
+  };
 
-    if (name == "isRunning") {
-      const checked = e.target.checked;
+  const handleChange = (e) => {
+    let { name, value, checked } = e.target;
+    if (name === "isRunning") {
       value = checked;
-      if (checked && formData.title && formData.projectId) {
-        onStart(new Task(formData.title, formData.projectId));
+      if (checked) {
+        console.log(getTask());
+
+        if (!getTask() && formData.title && formData.projectId) {
+          onStart(new Task(formData.title, formData.projectId));
+        } else {
+          onStart();
+        }
+      } else {
+        onPause();
       }
     }
 
     setFormData({ ...formData, [name]: value });
+  };
+
+  const stopTimer = () => {
+    onStop();
+    setFormData({
+      title: "",
+      projectId: "",
+      isRunning: false,
+    });
   };
 
   return (
@@ -61,8 +79,9 @@ export default function Timer({ projects, onStart, getTime }) {
       </div>
 
       <div className="form-group">
-        <h2 className="timer-time">{getTime()}</h2>
+        <h2 className="timer-time">{getTime() ? getTime() : "00:00:00"}</h2>
         <label
+          onDoubleClick={stopTimer}
           className={`play-button-checkbox ${
             formData.isRunning ? "running" : ""
           }`}

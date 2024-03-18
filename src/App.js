@@ -9,6 +9,7 @@ import {
 import TasksList from "./components/TasksList";
 import ProjectsList from "./components/ProjectsList";
 import Timer from "./components/Timer";
+import { formatDate, formatTime } from "./utils/timeUtils";
 
 function App() {
   const [activeTab, setActiveTab] = useState(TabOptions.Tasks);
@@ -84,8 +85,30 @@ function App() {
     setActiveTab(TabOptions[tabOption]);
   };
 
-  const startTimer = (task) => {
-    const id = task.id;
+  const getCurrentTask = () => {
+    const taskId = localStorage.getItem("timer");
+    let task;
+    if (taskId) {
+      task = tasks.find((t) => t.id === taskId);
+    }
+    return task;
+  };
+
+  const pauseTimer = () => {
+    clearInterval(timerId);
+  };
+
+  const stopTimer = () => {
+    console.log("stopping");
+    localStorage.setItem("timer", null);
+    clearInterval(timerId);
+  };
+
+  const startTimer = (task = null) => {
+    let currentTask = getCurrentTask();
+    let id = task ? task.id : currentTask ? currentTask.id : null;
+    if (!id) return;
+
     if (!tasks.find((t) => t.id === id)) {
       addTask(task);
     }
@@ -109,19 +132,8 @@ function App() {
       });
     }, 1000);
 
-    localStorage.setItem("timer", task.id);
+    localStorage.setItem("timer", id);
     setTimerId(timerId);
-  };
-
-  const getCurrentTimer = () => {
-    const taskId = localStorage.getItem("timer");
-    if (taskId) {
-      const task = tasks.find((t) => t.id === taskId);
-      if (task) {
-        return task.endTime;
-      }
-    }
-    return;
   };
 
   return (
@@ -130,7 +142,9 @@ function App() {
         <Timer
           projects={projects}
           onStart={startTimer}
-          getTime={getCurrentTimer}
+          onPause={pauseTimer}
+          onStop={stopTimer}
+          getTask={getCurrentTask}
         />
       ) : null}
       <div className="tab-window">
